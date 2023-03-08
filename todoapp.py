@@ -8,8 +8,13 @@ user_prompt = "Type add, show, edit, complete, or exit: "
 
 while True:
     user_action = input(user_prompt)
-    user_action = user_action.strip()
-    if user_action.startswith("add"):
+    if user_action == "add":
+        todo = input("Enter a todo: ") + "\n"
+        todos = read()
+        todos.append(todo)
+        write(todos)
+    elif len(user_action) > 3 and user_action.startswith("add"):
+        user_action = user_action.strip()
         todo = user_action[4:]
 
         todos = read()
@@ -23,7 +28,7 @@ while True:
         todos = read()
 
         for index, item in enumerate(todos):
-            item = item.strip("\n")  # easiest way to remove \n
+            item = item.strip("\n")
             row = f"{index + 1}-{item}"
             print(row)
 
@@ -42,7 +47,7 @@ while True:
             write(todos)
 
         except ValueError:
-            print("Your command is not valid")
+            print("You must enter edit followed by the index number of the item you want to edit ")
             continue
 
     elif user_action.startswith("complete"):
